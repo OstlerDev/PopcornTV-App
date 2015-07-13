@@ -41,9 +41,14 @@ app.on('ready', function() {
 
 
   var ipc = require('ipc');
+  var PopcornTV;
 
   ipc.on('start', function(){
-    var PopcornTV = require('./app/atv.js');
+    PopcornTV = require('./app/atv.js');
     PopcornTV.start();
+  });
+
+  ipc.on('stop', function(){
+    PopcornTV.stop();
   });
 });
