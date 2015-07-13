@@ -17,16 +17,14 @@
 		    </center>
 	  	</div>
 	    <div>
-	    	<button id="install" onclick="app.install()" class="btn btn-info" style="margin-left: 25%;">
-	    		<script>
-	    			if (app.installed()){
-	    				document.write('Update');
-	    			} else {
-	    				document.write('Install');
-	    			}
-	    		</script>
-	    	</a>
-	    	<button id="status" onclick="app.start()" class="btn btn-success" style="margin-left: 20%;">Start</a>
+	    	<script>
+	    		if (app.installed()){
+	    			document.write('<button id="install" onclick="app.update()" class="btn btn-info" style="margin-left: 25%;">Update</button>');
+	    		} else {
+	    			document.write('<button id="install" onclick="app.install()" class="btn btn-info" style="margin-left: 25%;">Install</button>');
+	    		}
+	    	</script>
+	    	<button id="status" onclick="app.start()" class="btn btn-success" style="margin-left: 20%;">Start</button>
 	    </div>
 
     </container>
