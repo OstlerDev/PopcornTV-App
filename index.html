@@ -6,22 +6,29 @@
 
     </style>
     <link rel="stylesheet" type="text/css" href="css/darkly.min.css">
+
+    <script>var app = require('./app.js');</script>
   </head>
   <body>
   	<container>
-	  	<div style="padding-top: 5px; padding-bottom: 20px;">
+	  	<div style="padding-top: 5%; padding-bottom: 10%;">
 	  		<center>
 		    	<img src='logo.png' height="75" />
 		    </center>
 	  	</div>
 	    <div>
-	    	<a href="#" class="btn btn-info" style="margin-left: 25%;">Install</a>
-	    	<a href="#" class="btn btn-info" style="margin-left: 20%;">Update</a>
+	    	<button id="install" onclick="app.install()" class="btn btn-info" style="margin-left: 25%;">
+	    		<script>
+	    			if (app.installed()){
+	    				document.write('Update');
+	    			} else {
+	    				document.write('Install');
+	    			}
+	    		</script>
+	    	</a>
+	    	<button id="status" onclick="app.start()" class="btn btn-success" style="margin-left: 20%;">Start</a>
 	    </div>
-	    <div style="padding-top: 10%;">
-	    	<a href="#" class="btn btn-success" style="margin-left: 25%;">Start</a>
-	    	<a href="#" class="btn btn-danger" style="margin-left: 23%;">Stop</a>
-	    </div>
+
     </container>
   </body>
 </html>
