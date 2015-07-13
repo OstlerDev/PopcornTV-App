@@ -26,9 +26,9 @@
 	    	</script>
 	    	<script>
 	    		if (app.installed()){
-	    			document.write('<button id="status" onclick="require(\'ipc\').send(\'start\');" class="btn btn-success" style="margin-left: 20%;">Start</button>');
+	    			document.write('<button id="status" onclick="require(\'ipc\').send(\'start\'); app.start();" class="btn btn-success" style="margin-left: 20%;">Start</button>');
 	    		} else {
-	    			document.write('<button id="status" onclick="require(\'ipc\').send(\'start\');" class="btn btn-success" style="margin-left: 20%;" disabled="disabled">Start</button>');
+	    			document.write('<button id="status" onclick="require(\'ipc\').send(\'start\'); app.start();" class="btn btn-success" style="margin-left: 20%;" disabled="disabled">Start</button>');
 	    		}
 	    	</script>
 	    </div>

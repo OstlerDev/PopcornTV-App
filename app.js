@@ -1,3 +1,17 @@
+function start(){
+	var button = document.getElementById('status');
+	button.textContent = 'Stop';
+	button.setAttribute('onclick', 'require(\'ipc\').send(\'stop\'); app.stop();');
+	button.className = 'btn btn-danger';
+};
+
+function stop(){
+	var button = document.getElementById('status');
+	button.textContent = 'Start';
+	button.setAttribute('onclick', 'require(\'ipc\').send(\'start\'); app.start();');
+	button.className = 'btn btn-success';
+};
+
 function installed(){
 	var fs = require('fs');
 
@@ -59,6 +73,8 @@ function update(){
 	});
 }
 
+exports.start = start;
+exports.stop = stop;
 exports.installed = installed;
 exports.install = install;
 exports.update = update;
