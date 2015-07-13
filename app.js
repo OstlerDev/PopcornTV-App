@@ -10,10 +10,6 @@ function installed(){
 	return false;
 }
 
-function start(){
-	return;
-}
-
 function install(){
 	var git = require('gift');
 
@@ -23,6 +19,17 @@ function install(){
 	git.clone('https://github.com/OstlerDev/PopcornTV.git', 'app/', function(err, repo){ 
 		if (err) alert(err);
 
+		var remote = require('remote');
+		var BrowserWindow = remote.require('browser-window');  // Module to create native browser window.
+		// Create the Installation Screen
+		installWindow = new BrowserWindow({width: 800, height: 600});
+		// Set Unresizable by user
+	    installWindow.setResizable(false);
+
+	    // and load the index.html of the app.
+	    installWindow.loadUrl('file://' + __dirname + '/install/step1.html');
+
+
 		var button = document.getElementById('install');
 		button.textContent = 'Update';
 		button.setAttribute('onclick', 'app.update()');
@@ -30,7 +37,7 @@ function install(){
 		var button = document.getElementById('status');
 		button.removeAttribute('disabled');
 
-		alert("Installed!");
+		alert("Please follow the Installation instructions");
 	});
 }
 
@@ -53,6 +60,5 @@ function update(){
 }
 
 exports.installed = installed;
-exports.start = start;
 exports.install = install;
 exports.update = update;

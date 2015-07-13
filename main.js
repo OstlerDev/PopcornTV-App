@@ -38,4 +38,12 @@ app.on('ready', function() {
     mainWindow = null;
     process.exit();
   });
+
+
+  var ipc = require('ipc');
+
+  ipc.on('start', function(){
+    var PopcornTV = require('./app/atv.js');
+    PopcornTV.start();
+  });
 });

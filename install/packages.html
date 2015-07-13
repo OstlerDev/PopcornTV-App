@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Installation Instructions - Installing Dependencies</title>
+    <style type="text/css">
+
+    </style>
+    <link rel="stylesheet" type="text/css" href="../css/darkly.min.css">
+  </head>
+  <body>
+  	<container>
+	  	<div style="padding-top: 20px; padding-bottom: 40px;">
+	  		<center>
+		    	<img src='../logo.png' height="75" />
+		    </center>
+	  	</div>
+	    <div class="col-lg-8">
+	    	<center>
+	    		<h1>Please Wait...</h1>
+	    		<p> Installing PopcornTV dependencies, please wait...</p>
+	    	</center>
+	    	<script>
+	    		var spawn = require('child_process').spawn;
+	    		var parentDir = __dirname.replace('install', 'app');
+	    		var npm = spawn('npm', ['install'], { cwd: parentDir });
+
+	    		npm.stderr.on('data', function(data) {
+        			npm.stdin.setEncoding('utf8');
+        			document.getElementById('messages').textContent += data.toString() + "\n";
+        		});
+
+        		npm.on('close', function(code, signal){
+        			require('ipc').send('start');
+        			document.location.href = 'step2.html';
+        		})
+	    	</script>
+	    	<p id="messages"></p>
+	    </div>
+
+    </container>
+  </body>
+</html>

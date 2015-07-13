@@ -1,10 +1,13 @@
 {
-  "name"        : "PopcornTV-App",
-  "version"     : "0.1.0",
-  "description" : "Desktop Application for PopcornTV",
-  "main"        : "main.js",
-  "scripts"     : {
-  	"start": "electron .",
-  	"build": "electron-packager ./ PopcornTV --platform=darwin --arch=x64 --version=0.25.1"
+  "name": "PopcornTV-App",
+  "version": "0.1.0",
+  "description": "Desktop Application for PopcornTV",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-packager ./ PopcornTV --platform=darwin --arch=x64 --version=0.25.1"
+  },
+  "dependencies": {
+    "ip": "^0.3.3"
   }
 }
