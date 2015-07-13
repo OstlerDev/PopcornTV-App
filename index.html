@@ -24,7 +24,13 @@
 	    			document.write('<button id="install" onclick="app.install()" class="btn btn-info" style="margin-left: 25%;">Install</button>');
 	    		}
 	    	</script>
-	    	<button id="status" onclick="app.start()" class="btn btn-success" style="margin-left: 20%;">Start</button>
+	    	<script>
+	    		if (app.installed()){
+	    			document.write('<button id="status" onclick="app.start()" class="btn btn-success" style="margin-left: 20%;">Start</button>');
+	    		} else {
+	    			document.write('<button id="status" onclick="app.start()" class="btn btn-success" style="margin-left: 20%;" disabled="disabled">Start</button>');
+	    		}
+	    	</script>
 	    </div>
 
     </container>

@@ -17,14 +17,20 @@ function start(){
 function install(){
 	var git = require('gift');
 
+	var button = document.getElementById('install');
+	button.textContent = 'Installing...';
+
 	git.clone('https://github.com/OstlerDev/PopcornTV.git', 'app/', function(err, repo){ 
 		if (err) alert(err);
 
-		alert("Installed!");
 		var button = document.getElementById('install');
 		button.textContent = 'Update';
-		button.onclick = app.update();
+		button.setAttribute('onclick', 'app.update()');
 
+		var button = document.getElementById('status');
+		button.removeAttribute('disabled');
+
+		alert("Installed!");
 	});
 }
 
