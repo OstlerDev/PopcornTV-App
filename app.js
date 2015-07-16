@@ -30,7 +30,6 @@ function install(){
 	var button = document.getElementById('install');
 	button.textContent = 'Installing...';
 
-	alert(__dirname);
 	git.clone('https://github.com/OstlerDev/PopcornTV.git', __dirname + '/app', function(err, repo){ 
 		if (err){
 			alert(err);
@@ -54,6 +53,8 @@ function install(){
 
 		var button = document.getElementById('status');
 		button.removeAttribute('disabled');
+
+		start();
 
 		alert("Please follow the Installation instructions");
 	});
