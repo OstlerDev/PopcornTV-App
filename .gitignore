@@ -2,3 +2,8 @@ app/*
 PopcornTV.log
 config.json
 PopcornTV-darwin-x64/*
+aTVSettings.json
+PopcornTV.app
+*.zip
+node_modules/.bin/*
+node_modules/electron-packager/
