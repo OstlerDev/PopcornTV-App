@@ -16,7 +16,7 @@ function installed(){
 	var fs = require('fs');
 
 	try{
-		fs.lstatSync('app');
+		fs.lstatSync(__dirname + '/app');
 		return true;
 	} catch(e) {
 		return false;
@@ -61,7 +61,7 @@ function install(){
 
 function update(){
 	var git = require('gift');
-	var repo = git('app');
+	var repo = git(__dirname + '/app');
 
 	var button = document.getElementById('install');
 	button.textContent = 'Updating...';

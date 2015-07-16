@@ -22,7 +22,8 @@
 	    	<script>
 	    		var spawn = require('child_process').spawn;
 	    		var parentDir = __dirname.replace('install', 'app');
-	    		var npm = spawn('npm', ['install'], { cwd: parentDir });
+	    		process.env.PATH = "/usr/local/bin:" + process.env.PATH;
+	    		var npm = spawn('npm', ['install'], { cwd: parentDir, env: process.env });
 
 	    		npm.stderr.on('data', function(data) {
         			npm.stdin.setEncoding('utf8');
