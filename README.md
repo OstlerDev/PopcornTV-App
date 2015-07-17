@@ -1,3 +1,4 @@
+[![Build Status](http://ci.popcorntv.io/job/PopcornTV-Desktop/badge/icon)](http://ci.popcorntv.io/job/PopcornTV-Desktop/)
 # PopcornTV
 Desktop Application for PopcornTV
 
