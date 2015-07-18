@@ -1,6 +1,7 @@
 [![Build Status](http://ci.popcorntv.io/job/PopcornTV-Desktop/badge/icon)](http://ci.popcorntv.io/job/PopcornTV-Desktop/)
 # PopcornTV
 Desktop Application for PopcornTV
+[Nightly Build Server](http://ci.popcorntv.io/job/PopcornTV-Desktop/)
 
 # Application Preview
 ![](http://i.imgur.com/UeKjcXs.png)
