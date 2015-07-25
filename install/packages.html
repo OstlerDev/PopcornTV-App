@@ -27,15 +27,28 @@
 
 	    		npm.stderr.on('data', function(data) {
         			npm.stdin.setEncoding('utf8');
-        			document.getElementById('messages').textContent += data.toString() + "\n";
+        			var p = document.createElement('p').appendChild(document.createTextNode(data.toString()));
+        			document.getElementById('messages').appendChild(p);
+
+        			var br = document.createElement('br');
+        			document.getElementById('messages').appendChild(br);
         		});
+
+        		npm.stdout.on('data', function(data) {
+        			npm.stdin.setEncoding('utf8');
+        			var p = document.createElement('p').appendChild(document.createTextNode(data.toString()));
+        			document.getElementById('messages').appendChild(p);
+
+        			var br = document.createElement('br');
+        			document.getElementById('messages').appendChild(br);
+        		})
 
         		npm.on('close', function(code, signal){
         			require('ipc').send('start');
         			document.location.href = 'step2.html';
         		})
 	    	</script>
-	    	<p id="messages"></p>
+	    	<div id="messages"></div>
 	    </div>
 
     </container>
