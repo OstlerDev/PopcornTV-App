@@ -4,7 +4,7 @@
   "description": "Desktop Application for PopcornTV",
   "main": "index.html",
   "window": {
-    "toolbar": false,
+    "toolbar": true,
     "width": 500,
     "height": 300
   },
