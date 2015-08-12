@@ -1,3 +1,6 @@
+var gui = require('nw.gui');
+var win = gui.Window.get();
+
 function start(){
 	var button = document.getElementById('status');
 	button.textContent = 'Stop';
@@ -36,16 +39,18 @@ function install(){
 			return;
 		}
 
-		var remote = require('remote');
-		var BrowserWindow = remote.require('browser-window');  // Module to create native browser window.
+		var installWindow = gui.Window.open('file://' + __dirname + '/install/step1.html', {
+      position: 'center',
+      width: 800,
+      height: 600
+    });
 		// Create the Installation Screen
-		installWindow = new BrowserWindow({width: 800, height: 600});
+		//installWindow = new BrowserWindow({width: 800, height: 600});
 		// Set Unresizable by user
-	    installWindow.setResizable(false);
+	    //nstallWindow.setResizable(false);
 
 	    // and load the index.html of the app.
-	    installWindow.loadUrl('file://' + __dirname + '/install/step1.html');
-
+	    //installWindow.loadUrl('file://' + __dirname + '/install/step1.html');
 
 		var button = document.getElementById('install');
 		button.textContent = 'Update';
@@ -83,7 +88,7 @@ function update(){
 	});
 }
 
-var remote = require('remote');
+/*var remote = require('remote');
 var Menu = remote.require('menu');
 var template = [
   {
@@ -169,6 +174,7 @@ var template = [
 menu = Menu.buildFromTemplate(template);
 
 Menu.setApplicationMenu(menu);
+*/
 
 exports.start = start;
 exports.stop = stop;

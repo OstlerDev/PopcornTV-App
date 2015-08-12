@@ -7,3 +7,5 @@ PopcornTV.app
 *.zip
 node_modules/.bin/*
 node_modules/electron-packager/
+nwjs.app
+*.log

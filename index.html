@@ -1,13 +1,104 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>PopcornTV v0.1.0</title>
+    <title>PopcornTV v0.2.0</title>
     <style type="text/css">
 
     </style>
     <link rel="stylesheet" type="text/css" href="css/darkly.min.css">
 
-    <script>var app = require('./app.js');</script>
+    <script>
+    	var gui = require('nw.gui');
+		var win = gui.Window.get();
+
+		function start(){
+			var button = document.getElementById('status');
+			button.textContent = 'Stop';
+			button.setAttribute('onclick', 'require(\'ipc\').send(\'stop\'); app.stop();');
+			button.className = 'btn btn-danger';
+		};
+
+		function stop(){
+			var button = document.getElementById('status');
+			button.textContent = 'Start';
+			button.setAttribute('onclick', 'require(\'ipc\').send(\'start\'); app.start();');
+			button.className = 'btn btn-success';
+		};
+
+		function installed(){
+			var fs = require('fs');
+
+			try{
+				fs.lstatSync(__dirname + '/app');
+				return true;
+			} catch(e) {
+				return false;
+			}
+			return false;
+		}
+
+		function install(){
+			var git = require('gift');
+
+			var button = document.getElementById('install');
+			button.textContent = 'Installing...';
+
+			git.clone('https://github.com/OstlerDev/PopcornTV.git', process.cwd() + '/app', function(err, repo){ 
+				if (err){
+					alert(err);
+					return;
+				}
+
+				var installWindow = gui.Window.open('file://' + process.cwd() + '/install/step1.html', {
+		      position: 'center',
+		      width: 800,
+		      height: 600
+		    });
+				// Create the Installation Screen
+				//installWindow = new BrowserWindow({width: 800, height: 600});
+				// Set Unresizable by user
+			    //nstallWindow.setResizable(false);
+
+			    // and load the index.html of the app.
+			    //installWindow.loadUrl('file://' + __dirname + '/install/step1.html');
+
+				var button = document.getElementById('install');
+				button.textContent = 'Update';
+				button.setAttribute('onclick', 'app.update()');
+
+				var button = document.getElementById('status');
+				button.removeAttribute('disabled');
+
+				start();
+
+				alert("Please follow the Installation instructions");
+			});
+		}
+
+		function update(){
+			var git = require('gift');
+			var repo = git(__dirname + '/app');
+
+			var button = document.getElementById('install');
+			button.textContent = 'Updating...';
+
+			require('ipc').send('stop');
+			stop();
+
+			repo.sync(function(err){
+				button.textContent = 'Update';
+				require('ipc').send('start');
+				start();
+
+				if (err){
+				 	alert(err);
+				} else {
+					alert('Updated!');
+				}
+			});
+		}
+
+    </script>
   </head>
   <body>
   	<container>
@@ -18,17 +109,17 @@
 	  	</div>
 	    <div>
 	    	<script>
-	    		if (app.installed()){
-	    			document.write('<button id="install" onclick="app.update()" class="btn btn-info" style="margin-left: 25%;">Update</button>');
+	    		if (installed()){
+	    			document.write('<button id="install" onclick="update()" class="btn btn-info" style="margin-left: 25%;">Update</button>');
 	    		} else {
-	    			document.write('<button id="install" onclick="app.install()" class="btn btn-info" style="margin-left: 25%;">Install</button>');
+	    			document.write('<button id="install" onclick="install()" class="btn btn-info" style="margin-left: 25%;">Install</button>');
 	    		}
 	    	</script>
 	    	<script>
-	    		if (app.installed()){
-	    			document.write('<button id="status" onclick="require(\'ipc\').send(\'start\'); app.start();" class="btn btn-success" style="margin-left: 20%;">Start</button>');
+	    		if (installed()){
+	    			document.write('<button id="status" onclick="start();" class="btn btn-success" style="margin-left: 20%;">Start</button>');
 	    		} else {
-	    			document.write('<button id="status" onclick="require(\'ipc\').send(\'start\'); app.start();" class="btn btn-success" style="margin-left: 20%;" disabled="disabled">Start</button>');
+	    			document.write('<button id="status" onclick="" class="btn btn-success" style="margin-left: 20%;" disabled="disabled">Start</button>');
 	    		}
 	    	</script>
 	    </div>

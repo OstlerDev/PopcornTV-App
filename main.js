@@ -1,58 +1,18 @@
-var app = require('app');  // Module to control application life.
-var BrowserWindow = require('browser-window');  // Module to create native browser window.
+var gui = require('nw.gui');  // NWjs Gui Object
 
-// Report crashes to our server.
-require('crash-reporter').start();
+var PopcornTV;
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the javascript object is GCed.
-var mainWindow = null;
-
-// Quit when all windows are closed.
-app.on('window-all-closed', function() {
-  if (process.platform != 'darwin') {
-    app.quit();
+/*
+ipc.on('start', function(){
+  PopcornTV = require('./app/atv.js');
+  try{
+    PopcornTV.start();
+  } catch(e){
+    console.error(e);
   }
 });
 
-// This method will be called when Electron has done everything
-// initialization and ready for creating browser windows.
-app.on('ready', function() {
-  // Create the browser window.
-  mainWindow = new BrowserWindow({width: 500, height: 300});
-
-  // Set Unresizable by user
-  mainWindow.setResizable(false);
-
-  // and load the index.html of the app.
-  mainWindow.loadUrl('file://' + __dirname + '/index.html');
-
-  // Open the devtools.
-  //mainWindow.openDevTools();
-
-  // Emitted when the window is closed.
-  mainWindow.on('closed', function() {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    mainWindow = null;
-    process.exit();
-  });
-
-
-  var ipc = require('ipc');
-  var PopcornTV;
-
-  ipc.on('start', function(){
-    PopcornTV = require('./app/atv.js');
-    try{
-      PopcornTV.start();
-    } catch(e){
-      console.error(e);
-    }
-  });
-
-  ipc.on('stop', function(){
-    PopcornTV.stop();
-  });
+ipc.on('stop', function(){
+  PopcornTV.stop();
 });
+*/
