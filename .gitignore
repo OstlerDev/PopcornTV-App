@@ -9,3 +9,4 @@ node_modules/.bin/*
 node_modules/electron-packager/
 nwjs.app
 *.log
+node_modules/*

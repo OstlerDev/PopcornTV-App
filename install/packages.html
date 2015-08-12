@@ -20,37 +20,41 @@
 	    		<p> Installing PopcornTV dependencies, please wait...</p>
 	    	</center>
 	    	<script>
-	    		var spawn = require('child_process').spawn;
-	    		var parentDir = __dirname.replace('install', 'app');
-	    		process.env.PATH = "/usr/local/bin:" + process.env.PATH;
-	    		var npm = spawn('npm', ['install'], { cwd: parentDir, env: process.env });
+                var path = require('path');
 
-	    		npm.stderr.on('data', function(data) {
-        			npm.stdin.setEncoding('utf8');
-        			var p = document.createElement('p').appendChild(document.createTextNode(data.toString()));
-        			document.getElementById('messages').appendChild(p);
+                var p = require(path.join(process.cwd(), 'app', 'package.json'));
+                var deps = [];
 
-        			var br = document.createElement('br');
-        			document.getElementById('messages').appendChild(br);
-        		});
+                if (p.dependencies){
+                    for (var mod in p.dependencies) {
+                        deps.push(mod + "@" + p.dependencies[mod]);
+                    }
+                }
 
-        		npm.stdout.on('data', function(data) {
-        			npm.stdin.setEncoding('utf8');
-        			var p = document.createElement('p').appendChild(document.createTextNode(data.toString()));
-        			document.getElementById('messages').appendChild(p);
+	    		var npm = require("npm")
+                npm.load('app/package.json', function (er) {
+                    if (er) return handlError(er)
+                    npm.commands.install(deps, function (er, data) {
+                        if (er) alert(er)
+                        console.log(data);
+                        // command succeeded, and data might have some info
+                        document.location.href = 'install/step2.html';
+                    })
+                    npm.registry.log.on("log", function (message) { 
+                        if (message.level != 'info') return;
+                        console.log(message);
+                        var p = document.createElement('p').appendChild(document.createTextNode(message.message));
+                        document.getElementById('messages').appendChild(p);
 
-        			var br = document.createElement('br');
-        			document.getElementById('messages').appendChild(br);
-        		})
+                        var br = document.createElement('br');
+                        document.getElementById('messages').appendChild(br);
 
-        		npm.on('close', function(code, signal){
-        			require('ipc').send('start');
-        			document.location.href = 'step2.html';
-        		})
+                        window.scrollTo(0,document.body.scrollHeight);
+                    })
+                })
 	    	</script>
 	    	<div id="messages"></div>
 	    </div>
-
     </container>
   </body>
 </html>

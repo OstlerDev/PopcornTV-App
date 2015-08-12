@@ -4,16 +4,17 @@
   "description": "Desktop Application for PopcornTV",
   "main": "index.html",
   "window": {
-    "toolbar": true,
+    "toolbar": false,
     "width": 500,
     "height": 300
   },
   "scripts": {
     "start": "./nwjs.app/Contents/MacOS/nwjs .",
-    "build": "electron-packager ./ PopcornTV --platform=darwin --arch=x64 --version=0.29.2 --icon Resources/Mac/icon.icns --ignore app/ Resources/"
+    "build": "./build.sh"
   },
   "dependencies": {
+    "gift": "^0.1.0",
     "ip": "^0.3.3",
-    "gift": "^0.1.0"
+    "npm": "^2.13.4"
   }
 }
