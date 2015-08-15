@@ -17,6 +17,13 @@
 			button.textContent = 'Stop';
 			button.setAttribute('onclick', 'stop();');
 			button.className = 'btn btn-danger';
+
+			PopcornTV = require('popcorntv');
+			try{
+				PopcornTV.start();
+			} catch(e){
+				stop();
+			}
 		};
 
 		function stop(){
@@ -25,6 +32,7 @@
 			button.setAttribute('onclick', 'start();');
 			button.className = 'btn btn-success';
 			PopcornTV.stop();
+			PopcornTV = null;
 		};
 
 		function installed(){
@@ -59,7 +67,10 @@
 			var button = document.getElementById('status');
 			button.removeAttribute('disabled');
 
-			start();
+			installWindow.on('close', function(){
+				start();
+				openInstructions();
+			})
 		}
 
 		function update(){
@@ -79,6 +90,15 @@
 	            	}, 5000)
 	            })
 	        });
+		}
+
+		function openInstructions(){
+			var installWindow = gui.Window.open('file://' + process.cwd() + '/install/step1.html', {
+			  	position: 'center',
+			  	toolbar: false,
+			  	width: 800,
+			  	height: 600
+			});
 		}
 
     </script>

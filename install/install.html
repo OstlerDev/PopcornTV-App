@@ -26,11 +26,18 @@
                     npm.commands.install(['popcorntv'], function (er, data) {
                         if (er) alert(er)
                         console.log(data);
-                        // command succeeded, and data might have some info
-                        document.location.href = 'install/step1.html';
+                        // Close this window to run the 'close' callback to the main application to start PopcornTV and then open the further install instructions.
+                        var gui = require('nw.gui');
+                        var win = gui.Window.get();
+                        win.on('close', function() {
+                            this.hide(); // Pretend to be closed already
+                            console.log("Closing Install and opening starting PopcornTV...");
+                            this.close(true);
+                        });
+                        win.close();
                     })
                     npm.registry.log.on("log", function (message) {
-                        if (message.level != 'info') return;
+                        if (message.level != 'info' || message.prefix != 'install') return;
                         var p = document.createElement('p').appendChild(document.createTextNode(message.message));
                         document.getElementById('messages').appendChild(p);
 
