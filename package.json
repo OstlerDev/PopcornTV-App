@@ -13,8 +13,8 @@
     "build": "./build.sh"
   },
   "dependencies": {
-    "gift": "^0.1.0",
     "ip": "^0.3.3",
-    "npm": "^2.13.4"
+    "npm": "^2.13.4",
+    "rimraf": "^2.4.2"
   }
 }

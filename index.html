@@ -9,9 +9,20 @@
 
     <script>
     	var gui = require('nw.gui');
+    	var tray = new gui.Tray({ title: 'Tray', icon: 'logo.png' });
+
+    	var menu = new gui.Menu();
+		menu.append(new gui.MenuItem({ type: 'checkbox', label: 'box1' }));
+		tray.menu = menu;
+
+		// Remove the tray
+		tray.remove();
+		tray = null;
+
 		var win = gui.Window.get();
 		var PopcornTV;
 
+		// Start PopcornTV and change the GUI buttons.
 		function start(){
 			var button = document.getElementById('status');
 			button.textContent = 'Stop';
@@ -22,7 +33,8 @@
 			try{
 				PopcornTV.start();
 			} catch(e){
-				stop();
+				PopcornTV.stop();
+				console.log(e);
 			}
 		};
 
@@ -77,6 +89,27 @@
 			var button = document.getElementById('install');
 			button.textContent = 'Updating...';
 
+			stop();
+
+			var fs = require('fs');
+			var dir = process.cwd() + '/tmp';
+
+			var rimraf = require('rimraf');
+			if (!fs.existsSync(dir)){
+			    fs.mkdirSync(dir);
+			}
+
+			fs.renameSync(process.cwd() + '/node_modules/popcorntv/assets/cache/', dir + '/cache/');
+			fs.renameSync(process.cwd() + '/node_modules/popcorntv/assets/certificates/', dir + '/certificates/');
+			fs.renameSync(process.cwd() + '/node_modules/popcorntv/config.json', dir + '/config.json');
+			fs.renameSync(process.cwd() + '/node_modules/popcorntv/aTVSettings.json', dir + '/aTVSettings.json');
+			try{
+				fs.renameSync(process.cwd() + '/node_modules/popcorntv/assets/torrent-stream/', dir + '/torrent-stream/');
+			} catch(e){}
+			try {
+				fs.renameSync(process.cwd() + '/node_modules/popcorntv/assets/converted/', dir + '/converted/');
+			} catch(e){}
+
 			var npm = require('npm');
 
 			npm.load(function (er) {
@@ -88,8 +121,23 @@
 	            	setTimeout(function(){
 	            		button.textContent = 'Update';
 	            	}, 5000)
-	            })
-	        });
+	            	rimraf.sync(process.cwd() + '/node_modules/popcorntv/assets/cache/');
+	            	fs.renameSync(dir + '/cache/', process.cwd() + '/node_modules/popcorntv/assets/cache/');
+	            	rimraf.sync(process.cwd() + '/node_modules/popcorntv/assets/certificates/');
+					fs.renameSync(dir + '/certificates/', process.cwd() + '/node_modules/popcorntv/assets/certificates/');
+					fs.renameSync(dir + '/config.json', process.cwd() + '/node_modules/popcorntv/config.json');
+					fs.renameSync(dir + '/aTVSettings.json', process.cwd() + '/node_modules/popcorntv/aTVSettings.json');
+					try{
+						fs.renameSync(dir + '/torrent-stream/', process.cwd() + '/node_modules/popcorntv/assets/torrent-stream/');
+					} catch(e){}
+					try {
+						fs.renameSync(dir + '/converted/', process.cwd() + '/node_modules/popcorntv/assets/converted/');
+					} catch(e){}
+					rimraf.sync(dir);
+
+					start();
+			    })
+			});
 		}
 
 		function openInstructions(){
