@@ -89,7 +89,9 @@
 			var button = document.getElementById('install');
 			button.textContent = 'Updating...';
 
-			stop();
+			try{
+				stop();
+			}catch(e){}
 
 			var fs = require('fs');
 			var dir = process.cwd() + '/tmp';
@@ -99,16 +101,12 @@
 			    fs.mkdirSync(dir);
 			}
 
-			fs.renameSync(process.cwd() + '/node_modules/popcorntv/assets/cache/', dir + '/cache/');
-			fs.renameSync(process.cwd() + '/node_modules/popcorntv/assets/certificates/', dir + '/certificates/');
-			fs.renameSync(process.cwd() + '/node_modules/popcorntv/config.json', dir + '/config.json');
-			fs.renameSync(process.cwd() + '/node_modules/popcorntv/aTVSettings.json', dir + '/aTVSettings.json');
-			try{
-				fs.renameSync(process.cwd() + '/node_modules/popcorntv/assets/torrent-stream/', dir + '/torrent-stream/');
-			} catch(e){}
-			try {
-				fs.renameSync(process.cwd() + '/node_modules/popcorntv/assets/converted/', dir + '/converted/');
-			} catch(e){}
+			try { fs.renameSync(process.cwd() + '/node_modules/popcorntv/assets/cache/', dir + '/cache/'); } catch(e){}
+			try { fs.renameSync(process.cwd() + '/node_modules/popcorntv/assets/certificates/', dir + '/certificates/'); } catch(e){}
+			try { fs.renameSync(process.cwd() + '/node_modules/popcorntv/config.json', dir + '/config.json'); } catch(e){}
+			try { fs.renameSync(process.cwd() + '/node_modules/popcorntv/aTVSettings.json', dir + '/aTVSettings.json'); } catch(e){}
+			try{ fs.renameSync(process.cwd() + '/node_modules/popcorntv/assets/torrent-stream/', dir + '/torrent-stream/'); } catch(e){}
+			try { fs.renameSync(process.cwd() + '/node_modules/popcorntv/assets/converted/', dir + '/converted/'); } catch(e){}
 
 			var npm = require('npm');
 
@@ -121,19 +119,15 @@
 	            	setTimeout(function(){
 	            		button.textContent = 'Update';
 	            	}, 5000)
-	            	rimraf.sync(process.cwd() + '/node_modules/popcorntv/assets/cache/');
-	            	fs.renameSync(dir + '/cache/', process.cwd() + '/node_modules/popcorntv/assets/cache/');
-	            	rimraf.sync(process.cwd() + '/node_modules/popcorntv/assets/certificates/');
-					fs.renameSync(dir + '/certificates/', process.cwd() + '/node_modules/popcorntv/assets/certificates/');
-					fs.renameSync(dir + '/config.json', process.cwd() + '/node_modules/popcorntv/config.json');
-					fs.renameSync(dir + '/aTVSettings.json', process.cwd() + '/node_modules/popcorntv/aTVSettings.json');
-					try{
-						fs.renameSync(dir + '/torrent-stream/', process.cwd() + '/node_modules/popcorntv/assets/torrent-stream/');
-					} catch(e){}
-					try {
-						fs.renameSync(dir + '/converted/', process.cwd() + '/node_modules/popcorntv/assets/converted/');
-					} catch(e){}
-					rimraf.sync(dir);
+	            	try { rimraf.sync(process.cwd() + '/node_modules/popcorntv/assets/cache/'); } catch(e){}
+	            	try { fs.renameSync(dir + '/cache/', process.cwd() + '/node_modules/popcorntv/assets/cache/'); } catch(e){}
+	            	try { rimraf.sync(process.cwd() + '/node_modules/popcorntv/assets/certificates/'); } catch(e){}
+					try { fs.renameSync(dir + '/certificates/', process.cwd() + '/node_modules/popcorntv/assets/certificates/'); } catch(e){}
+					try { fs.renameSync(dir + '/config.json', process.cwd() + '/node_modules/popcorntv/config.json'); } catch(e){}
+					try { fs.renameSync(dir + '/aTVSettings.json', process.cwd() + '/node_modules/popcorntv/aTVSettings.json'); } catch(e){}
+					try{ fs.renameSync(dir + '/torrent-stream/', process.cwd() + '/node_modules/popcorntv/assets/torrent-stream/'); } catch(e){}
+					try { fs.renameSync(dir + '/converted/', process.cwd() + '/node_modules/popcorntv/assets/converted/'); } catch(e){}
+					try { rimraf.sync(dir); } catch(e){}
 
 					start();
 			    })

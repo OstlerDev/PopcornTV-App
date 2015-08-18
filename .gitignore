@@ -10,3 +10,5 @@ node_modules/electron-packager/
 nwjs.app
 *.log
 node_modules/*
+build/*
+cache/*
