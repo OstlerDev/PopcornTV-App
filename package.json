@@ -4,7 +4,7 @@
   "description": "Desktop Application for PopcornTV",
   "main": "index.html",
   "window": {
-    "toolbar": true,
+    "toolbar": false,
     "width": 500,
     "height": 300
   },
@@ -18,6 +18,8 @@
     "rimraf": "^2.4.2"
   },
   "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-nw-builder": "^2.0.0",
     "nw-builder": "^2.0.2"
   }
 }
