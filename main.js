@@ -1,5 +1,3 @@
-import { Accessibility } from 'accessibility';
-window.addEventListener('load', function() { new Accessibility(); }, false);
 var gui = require('nw.gui');  // NWjs Gui Object
 
 var PopcornTV;
