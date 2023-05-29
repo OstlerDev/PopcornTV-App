@@ -23,18 +23,21 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout repo
-        uses: actions/checkout@v2
+      #- name: Checkout repo
+      #  uses: actions/checkout@v2
 
-      - name: Install deps
-        run: npm install
+      #- name: Install deps
+      #  run: npm install
 
-      - name: Install packages
-        run: npm run install-packages
+      #- name: Install packages
+      #  run: npm run install-packages
 
 
       # - name: Lint
       #   run: npm run lint
 
-      - name: Build
-        run: npm run build
+      #- name: Build
+      #  run: npm run build
+      # Linux
+      - name: Build for Linux
+        run: electron-packager . PopcornTV --platform=linux --arch=x64 --version=0.30.0 --icon Resources/Mac/icon.icns --ignore "/Mac.zip|Windows.zip|Linux.zip/g" --overwrite
