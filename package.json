@@ -16,7 +16,7 @@
     "ip": "^0.3.3",
     "npm": "^2.13.4",
     "rimraf": "^2.4.2",
-    "accessibility": "^4.5.7"
+    //"accessibility": "^4.5.7"
   },
   "devDependencies": {
     "grunt": "^1.6.1",
